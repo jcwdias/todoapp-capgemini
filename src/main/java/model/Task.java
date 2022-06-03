@@ -27,16 +27,16 @@ public class Task {
     }
 
     public Task(){
+        this.prazo = new Date();
         this.dataCriacao = new Date();
+        this.dataAtualizacao = new Date();
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) {this.id = id;}
 
     public int getIdProject() {
         return idProject;
@@ -90,13 +90,11 @@ public class Task {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
+    public void setDataCriacao(Date dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 
-    public Date getDataAtualizacao() {
-        return dataAtualizacao;
-    }
+    public Date getDataAtualizacao() {return dataAtualizacao;}
 
     public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;

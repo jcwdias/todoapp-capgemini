@@ -1,5 +1,6 @@
 package controller;
 
+import model.Project;
 import model.Task;
 import util.ConnectionFactory;
 
@@ -56,7 +57,7 @@ public class TaskController {
                 + "OBSERVACOES = ?, "
                 + "PRAZO = ?, "
                 + "DATA_CRIACAO = ?, "
-                + "DATA_ATUALIZACAO) = ?, "
+                + "DATA_ATUALIZACAO = ? "
                 + "WHERE id = ?";
 
         Connection connection = null;
@@ -115,16 +116,16 @@ public class TaskController {
         }
     }
 
-    public List<Task> getAll(int idProject){
+    public List<Task> getAll(int id_Project){
 
-        String sql = "SELECT * FROM tarefas WHERE idProjeto = ? ";
+        String sql = "SELECT * FROM tarefas WHERE id_Projeto = ? ";
+
+        //Lista de tarefas que será devolvida quando o método for chamado
+        List<Task> tasks = new ArrayList<>();
 
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-
-        //Lista de tarefas que será devolvida quando o método for chamado
-        List<Task> tasks = new ArrayList<Task>();
 
         try {
 
@@ -135,7 +136,7 @@ public class TaskController {
             statement = connection.prepareStatement(sql);
 
             //Setando valor correspondente ao filtro de busca
-            statement.setInt(1,idProject);
+            statement.setInt(1,id_Project);
 
             //Valor retornado pela execução da query
             resultSet = statement.executeQuery();
@@ -144,14 +145,14 @@ public class TaskController {
             while (resultSet.next()){
                 Task task = new Task();
                 task.setId(resultSet.getInt("id"));
-                task.setIdProject(resultSet.getInt("idProjeto"));
+                task.setIdProject(resultSet.getInt("id_Projeto"));
                 task.setNome(resultSet.getString("nome"));
                 task.setDescricao(resultSet.getString("descricao"));
                 task.setObservacoes(resultSet.getString("observacoes"));
-                task.setCompleto(resultSet.getBoolean("completo"));
+                task.setCompleto(resultSet.getBoolean("concluida"));
                 task.setPrazo(resultSet.getDate("prazo"));
-                task.setDataCriacao(resultSet.getDate("dataCriacao"));
-                task.setDataAtualizacao(resultSet.getDate("dataAtualizacao"));
+                task.setDataCriacao(resultSet.getDate("data_Criacao"));
+                task.setDataAtualizacao(resultSet.getDate("data_Atualizacao"));
                 tasks.add(task);
             }
         }catch (Exception ex){

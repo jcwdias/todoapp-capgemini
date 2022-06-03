@@ -75,7 +75,7 @@ public class ProjectController {
 
     }
 
-    public void removeById(int projectID) {
+    public static void removeById(int projectID) {
         String sql = "DELETE FROM projetos WHERE id = ?";
 
         Connection connection = null;
